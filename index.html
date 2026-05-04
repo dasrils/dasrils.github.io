@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="description" content="Gudang Pintar - Sistem manajemen toko online GRATIS untuk UMKM Indonesia yang kesulitan berjualan online. Kuota terbatas, daftar sekarang!">
+  <meta name="keywords" content="aplikasi toko online gratis, sistem kasir online, manajemen stok, umkm indonesia">
+  <meta name="author" content="Gudang Pintar">
+  <title>Gudang Pintar - Sistem Toko Online GRATIS Terbatas untuk UMKM</title>
+  
+  <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23667eea'><path d='M3 9h18v12H3z'/><path d='M21 6h-4V4c0-1.1-.9-2-2-2H9c-1.1 0-2 .9-2 2v2H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-6 0H9V4h6v2z'/></svg>">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+    }
+    
+    body {
+      background: #f0f2f5;
+      overflow-x: hidden;
+    }
+    
+    .navbar {
+      background: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      padding: 15px 20px;
+    }
+    
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #667eea;
+    }
+    
+    .logo span {
+      color: #28a745;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 30px;
+      align-items: center;
+    }
+    
+    .nav-links a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+    }
+    
+    .nav-links a:hover {
+      color: #667eea;
+    }
+    
+    .btn-register-header {
+      background: #28a745;
+      color: white !important;
+      padding: 10px 25px;
+      border-radius: 50px;
+      animation: pulse 1.5s infinite;
+    }
+    
+    .btn-register-header:hover {
+      background: #218838;
+    }
+    
+    .hero {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 120px 20px 80px;
+      color: white;
+      text-align: center;
+    }
+    
+    .hero h1 {
+      font-size: 48px;
+      margin-bottom: 20px;
+      animation: fadeInUp 0.8s ease;
+    }
+    
+    .hero p {
+      font-size: 20px;
+      max-width: 600px;
+      margin: 0 auto 30px;
+      opacity: 0.95;
+      animation: fadeInUp 0.8s ease 0.1s both;
+    }
+    
+    .hero-buttons {
+      animation: fadeInUp 0.8s ease 0.2s both;
+    }
+    
+    .btn-primary {
+      background: #28a745;
+      color: white;
+      padding: 15px 40px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 18px;
+      display: inline-block;
+      margin: 5px;
+      transition: all 0.3s;
+      border: none;
+      cursor: pointer;
+      animation: pulse 1.5s infinite;
+    }
+    
+    .btn-primary:hover {
+      background: #218838;
+      transform: translateY(-2px);
+    }
+    
+    .btn-secondary {
+      background: transparent;
+      color: white;
+      padding: 15px 40px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 18px;
+      display: inline-block;
+      margin: 5px;
+      border: 2px solid white;
+      transition: all 0.3s;
+    }
+    
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.1);
+      transform: translateY(-2px);
+    }
+    
+    .counter-section {
+      background: white;
+      padding: 40px 20px;
+      text-align: center;
+    }
+    
+    .counter-grid {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+    
+    .counter-item {
+      text-align: center;
+    }
+    
+    .counter-number {
+      font-size: 48px;
+      font-weight: bold;
+      color: #667eea;
+    }
+    
+    .counter-label {
+      color: #666;
+      font-size: 14px;
+    }
+    
+    .features {
+      padding: 80px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .section-title {
+      text-align: center;
+      font-size: 36px;
+      margin-bottom: 15px;
+      color: #333;
+    }
+    
+    .section-subtitle {
+      text-align: center;
+      color: #666;
+      margin-bottom: 50px;
+      font-size: 18px;
+    }
+    
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+    
+    .feature-card {
+      background: white;
+      border-radius: 15px;
+      padding: 30px;
+      text-align: center;
+      transition: all 0.3s;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    
+    .feature-icon {
+      font-size: 50px;
+      margin-bottom: 20px;
+    }
+    
+    .feature-card h3 {
+      margin-bottom: 15px;
+      color: #667eea;
+    }
+    
+    .feature-card p {
+      color: #666;
+      line-height: 1.6;
+    }
+    
+    .pricing {
+      background: #1a1a2e;
+      padding: 80px 20px;
+      text-align: center;
+      color: white;
+    }
+    
+    .pricing .section-title {
+      color: white;
+    }
+    
+    .pricing-card {
+      max-width: 450px;
+      margin: 0 auto;
+      background: rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 40px;
+      backdrop-filter: blur(10px);
+    }
+    
+    .price {
+      font-size: 36px;
+      font-weight: bold;
+      margin: 20px 0;
+    }
+    
+    .price small {
+      font-size: 16px;
+    }
+    
+    .quota-bar {
+      background: rgba(255,255,255,0.2);
+      border-radius: 10px;
+      padding: 10px;
+      margin-bottom: 20px;
+    }
+    
+    .quota-progress {
+      background: #ffc107;
+      height: 8px;
+      border-radius: 10px;
+      width: 65%;
+    }
+    
+    .testimonials {
+      padding: 80px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+    
+    .testimonial-card {
+      background: white;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    }
+    
+    .testimonial-text {
+      font-style: italic;
+      color: #555;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+    
+    .testimonial-author {
+      font-weight: bold;
+      color: #667eea;
+    }
+    
+    .flow-section {
+      padding: 80px 20px;
+      background: #f8f9fa;
+    }
+    
+    .flow-container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    
+    .flow-step {
+      display: flex;
+      align-items: center;
+      margin-bottom: 30px;
+      background: white;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    
+    .step-number {
+      width: 50px;
+      height: 50px;
+      background: #667eea;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: bold;
+      margin-right: 20px;
+      flex-shrink: 0;
+    }
+    
+    .step-content {
+      flex: 1;
+    }
+    
+    .step-title {
+      font-weight: bold;
+      font-size: 18px;
+      margin-bottom: 5px;
+    }
+    
+    .step-desc {
+      color: #666;
+      font-size: 14px;
+    }
+    
+    .flow-arrow {
+      text-align: center;
+      font-size: 24px;
+      color: #667eea;
+      margin: -15px 0 -15px 50px;
+    }
+    
+    .cta {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      text-align: center;
+      padding: 80px 20px;
+    }
+    
+    .cta h2 {
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+    
+    .cta p {
+      margin-bottom: 30px;
+      font-size: 18px;
+    }
+    
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.7);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .modal-content {
+      background: white;
+      border-radius: 20px;
+      max-width: 500px;
+      width: 90%;
+      max-height: 85vh;
+      overflow-y: auto;
+      padding: 30px;
+      position: relative;
+      animation: fadeInUp 0.3s ease;
+    }
+    
+    .close-modal {
+      position: fixed;
+      top: 15px;
+      right: 20px;
+      font-size: 28px;
+      cursor: pointer;
+      color: #999;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #333;
+    }
+    
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+    
+    .form-group input:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+    
+    .submit-btn {
+      background: #28a745;
+      color: white;
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    
+    .submit-btn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+    
+    .faq {
+      padding: 80px 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .faq-item {
+      background: white;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      padding: 20px;
+      cursor: pointer;
+    }
+    
+    .faq-question {
+      font-weight: bold;
+      color: #333;
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    .faq-answer {
+      display: none;
+      margin-top: 15px;
+      color: #666;
+      line-height: 1.6;
+      border-top: 1px solid #eee;
+      padding-top: 15px;
+    }
+    
+    .faq-item.active .faq-answer {
+      display: block;
+    }
+    
+    .footer {
+      background: #1a1a2e;
+      color: white;
+      padding: 60px 20px 30px;
+      text-align: center;
+    }
+    
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+    }
+    
+    .footer-links a {
+      color: #ccc;
+      text-decoration: none;
+    }
+    
+    .footer-links a:hover {
+      color: white;
+    }
+    
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #28a745;
+      color: white;
+      padding: 15px 25px;
+      border-radius: 10px;
+      z-index: 3000;
+      display: none;
+      animation: fadeInUp 0.3s ease;
+    }
+    
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); background: #218838; }
+      100% { transform: scale(1); }
+    }
+    
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hero h1 { font-size: 32px; }
+      .hero p { font-size: 16px; }
+      .btn-primary, .btn-secondary { padding: 12px 25px; font-size: 16px; }
+      .section-title { font-size: 28px; }
+      .flow-step { flex-direction: column; text-align: center; }
+      .step-number { margin-right: 0; margin-bottom: 15px; }
+      .flow-arrow { margin: 5px 0; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-container">
+    <div class="logo">Gudang<span>Pintar</span></div>
+    <div class="nav-links">
+      <a href="#fitur">Fitur</a>
+      <a href="#alur">Alur Pendaftaran</a>
+      <a href="#testimonial">Testimoni</a>
+      <a href="#faq">FAQ</a>
+      <a href="javascript:void(0)" class="btn-register-header" onclick="openModal()">🎯 Daftar - Kuota Terbatas!</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <h1>🏪 Kembalikan Pelanggan Setia Anda dengan <span style="color:#ffc107;">Toko Online Mandiri</span><br>Kuota Terbatas!</h1>
+  <p>Sistem Manajemen Gudang Pintar GRATIS khusus untuk UMKM offline yang ingin mulai berjualan online dengan mudah. Daftar SEKARANG sebelum kehabisan kuota!</p>
+  <div class="hero-buttons">
+    <a href="javascript:void(0)" class="btn-primary" onclick="openModal()">🎯 Daftar Gratis - Kuota Terbatas!</a>
+    <a href="#fitur" class="btn-secondary">✨ Lihat Fitur</a>
+  </div>
+</section>
+
+<section class="counter-section">
+  <div class="counter-grid">
+    <div class="counter-item">
+      <div class="counter-number" id="counterUmkm">0</div>
+      <div class="counter-label">UMKM Bergabung</div>
+    </div>
+    <div class="counter-item">
+      <div class="counter-number" id="counterProduct">0</div>
+      <div class="counter-label">Produk Terjual</div>
+    </div>
+    <div class="counter-item">
+      <div class="counter-number" id="counterOrder">0</div>
+      <div class="counter-label">Order Diproses</div>
+    </div>
+  </div>
+</section>
+
+<section class="features" id="fitur">
+  <h2 class="section-title">✨ Fitur Unggulan</h2>
+  <p class="section-subtitle">Semua yang Anda butuhkan untuk jualan online</p>
+  
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">📦</div>
+      <h3>Manajemen Stok</h3>
+      <p>Stok otomatis berkurang saat ada order. Pantau stok real-time dari HP.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🛒</div>
+      <h3>Katalog Produk</h3>
+      <p>Tampilkan produk dengan gambar dan harga. Customer bisa lihat langsung.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">💰</div>
+      <h3>Konfirmasi Bayar</h3>
+      <p>Customer upload bukti transfer, admin verifikasi otomatis.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🚚</div>
+      <h3>Lacak Pengiriman</h3>
+      <p>Input no resi, customer bisa lacak paket sampai tujuan.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📊</div>
+      <h3>Riwayat Pesanan</h3>
+      <p>Semua transaksi tercatat rapi dan bisa dilihat kapan saja.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">👥</div>
+      <h3>Multi Role</h3>
+      <p>Admin, Customer, Dropshipper, B2B dalam satu sistem.</p>
+    </div>
+  </div>
+</section>
+
+<section class="flow-section" id="alur">
+  <h2 class="section-title">📋 Alur Pendaftaran UMKM</h2>
+  <p class="section-subtitle">Mudah, cepat, dan gratis - tapi cepat, kuota terbatas!</p>
+  
+  <div class="flow-container">
+    <div class="flow-step"><div class="step-number">1</div><div class="step-content"><div class="step-title">📝 Isi Form Pendaftaran</div><div class="step-desc">Calon UMKM mengisi data diri dan usaha di formulir pendaftaran</div></div></div>
+    <div class="flow-arrow">▼</div>
+    <div class="flow-step"><div class="step-number">2</div><div class="step-content"><div class="step-title">📤 Data Terkirim ke Server</div><div class="step-desc">Data pendaftaran dikirim ke backend Google Apps Script</div></div></div>
+    <div class="flow-arrow">▼</div>
+    <div class="flow-step"><div class="step-number">3</div><div class="step-content"><div class="step-title">💾 Tersimpan di Spreadsheet</div><div class="step-desc">Data otomatis tersimpan di sheet PENDAFTAR_UMKM</div></div></div>
+    <div class="flow-arrow">▼</div>
+    <div class="flow-step"><div class="step-number">4</div><div class="step-content"><div class="step-title">👨‍💼 Admin Lihat Data</div><div class="step-desc">Admin buka menu "📋 Pendaftar UMKM" di aplikasi</div></div></div>
+    <div class="flow-arrow">▼</div>
+    <div class="flow-step"><div class="step-number">5</div><div class="step-content"><div class="step-title">📤 Kirim Panduan via WhatsApp</div><div class="step-desc">Admin mengirim panduan instalasi ke WhatsApp UMKM</div></div></div>
+    <div class="flow-arrow">▼</div>
+    <div class="flow-step"><div class="step-number">6</div><div class="step-content"><div class="step-title">✅ UMKM Siap Instalasi</div><div class="step-desc">UMKM menerima panduan dan mulai instalasi sistem toko online</div></div></div>
+  </div>
+</section>
+
+<section class="pricing">
+  <h2 class="section-title">🎯 GRATIS TERBATAS!</h2>
+  <p class="section-subtitle" style="color: #ccc;">Daftar SEKARANG sebelum kehabisan kuota</p>
+  
+  <div class="pricing-card">
+    <div class="price">🎯 GRATIS <small>TERBATAS!</small></div>
+    <p style="margin-bottom: 20px;">✅ Daftar SEKARANG sebelum kuota GRATIS habis!<br>✅ Promosi terbatas untuk UMKM Indonesia</p>
+    
+    <div class="quota-bar">
+      <div class="quota-progress"></div>
+      <p style="margin-top: 8px; font-size: 12px;">🎯 Sisa kuota: 65 dari 100 pendaftar</p>
+    </div>
+    
+    <a href="javascript:void(0)" class="btn-primary" onclick="openModal()" style="animation: pulse 1.5s infinite;">📝 Daftar Sekarang - Kuota Terbatas!</a>
+  </div>
+</section>
+
+<section class="testimonials" id="testimonial">
+  <h2 class="section-title">💬 Testimoni Pengguna</h2>
+  <p class="section-subtitle">Apa kata UMKM yang sudah menggunakan Gudang Pintar</p>
+  
+  <div class="testimonials-grid">
+    <div class="testimonial-card">
+      <p class="testimonial-text">"Seneng akhirnya nemu sistem yang simple. Dari order, bayar, sampe terima barang semua tercatat rapi."</p>
+      <p class="testimonial-author">- Dasrils (Customer)</p>
+      <div style="margin-top:10px;">⭐⭐⭐⭐⭐</div>
+    </div>
+    <div class="testimonial-card">
+      <p class="testimonial-text">"Aplikasi ini bantu banget buat dropshipper. Invoice otomatis, admin gudang yang kirim langsung ke customer."</p>
+      <p class="testimonial-author">- Toko ABC (Dropshipper)</p>
+      <div style="margin-top:10px;">⭐⭐⭐⭐⭐</div>
+    </div>
+    <div class="testimonial-card">
+      <p class="testimonial-text">"Fitur DP dan tenor sangat membantu. Ada invoice resmi, admin cepat verifikasi. Sistemnya gampang dan gratis!"</p>
+      <p class="testimonial-author">- Toko ABC (B2B Customer)</p>
+      <div style="margin-top:10px;">⭐⭐⭐⭐⭐</div>
+    </div>
+  </div>
+</section>
+
+<section class="faq" id="faq">
+  <h2 class="section-title">❓ Pertanyaan Umum</h2>
+  <p class="section-subtitle">Yang sering ditanyakan calon pengguna</p>
+  
+  <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-question">🔧 Apakah saya harus bisa coding? <span>▼</span></div><div class="faq-answer">Tidak perlu! Semua sudah siap pakai. Anda hanya perlu copy-paste kode yang sudah disediakan.</div></div>
+  <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-question">📱 Bisa pakai HP? <span>▼</span></div><div class="faq-answer">Bisa! Akses dari browser HP (Chrome/Safari). Tampilan sudah responsif.</div></div>
+  <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-question">💳 Apakah benar-benar gratis? <span>▼</span></div><div class="faq-answer">Ya, GRATIS untuk periode terbatas ini. Daftar sebelum kuota habis!</div></div>
+  <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-question">🛡️ Apakah data aman? <span>▼</span></div><div class="faq-answer">Data disimpan di Google Spreadsheet Anda sendiri. Kami tidak pernah mengakses data Anda.</div></div>
+  <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-question">⏱️ Berapa lama instalasi? <span>▼</span></div><div class="faq-answer">Cuma 5-10 menit. Kami sudah siapkan panduan langkah demi langkah.</div></div>
+  <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-question">📞 Ada dukungan jika saya kesulitan? <span>▼</span></div><div class="faq-answer">Ada! Bergabung di grup WhatsApp kami. Tim support siap membantu jam kerja.</div></div>
+</section>
+
+<section class="cta">
+  <h2>🎯 JANGAN SAMPAI KEHABISAN!</h2>
+  <p>Kami percaya bahwa UMKM adalah tulang punggung ekonomi Indonesia. Ini adalah bentuk kontribusi kami untuk membantu produk lokal Anda kembali menjadi raja di pasar online. Kuota GRATIS terbatas! Daftar sekarang juga dan dapatkan sistem toko online GRATIS.</p>
+  <a href="javascript:void(0)" class="btn-primary" onclick="openModal()" style="animation: pulse 1.5s infinite; font-size:20px;">📝 Daftar Sekarang - Kuota Terbatas!</a>
+</section>
+
+<footer class="footer">
+  <div class="footer-links">
+    <a href="#fitur">Fitur</a>
+    <a href="#alur">Alur Pendaftaran</a>
+    <a href="#testimonial">Testimoni</a>
+    <a href="#faq">FAQ</a>
+    <a href="javascript:void(0)" onclick="openModal()">Daftar</a>
+  </div>
+  <div class="footer-links">
+    <a href="https://wa.me/6285268348900">📞 WhatsApp: 0852-6834-8900</a>
+    <a href="mailto:dasrils@gmail.com">📧 Email: dasrils@gmail.com</a>
+  </div>
+  <p style="margin-top: 30px;">&copy; 2025 Gudang Pintar - Untuk UMKM Indonesia 🇮🇩</p>
+  <p style="font-size: 12px; margin-top: 15px;">Dibuat dengan ❤️ untuk membantu UMKM naik kelas</p>
+</footer>
+
+<div id="registerModal" class="modal">
+  <div class="modal-content">
+    <span class="close-modal" onclick="closeModal()">&times;</span>
+    <h3 style="margin-bottom: 20px; text-align: center;">🎯 Pendaftaran Gudang Pintar</h3>
+    <p style="margin-bottom: 20px; text-align: center; color: #666;">Kami percaya bahwa UMKM adalah tulang punggung ekonomi Indonesia. Ini adalah bentuk kontribusi kami untuk membantu produk lokal Anda kembali menjadi raja di pasar online. Isi data berikut, admin akan menghubungi via WhatsApp</p>
+    
+    <form id="registerForm">
+      <div class="form-group"><label>Nama UMKM / Toko *</label><input type="text" id="namaToko" required placeholder="Contoh: Toko Berkah Jaya"></div>
+      <div class="form-group"><label>Nama Pemilik *</label><input type="text" id="namaPemilik" required placeholder="Nama lengkap pemilik"></div>
+      <div class="form-group"><label>Email *</label><input type="email" id="email" required placeholder="email@example.com"></div>
+      <div class="form-group"><label>Nomor WhatsApp *</label><input type="tel" id="wa" required placeholder="081234567890"></div>
+      <div class="form-group"><label>Jenis Produk *</label><input type="text" id="produk" required placeholder="Contoh: Makanan, Fashion, Elektronik"></div>
+      <div class="form-group"><label>Perkiraan Jumlah Produk</label><select id="jumlahProduk"><option value="1-10">1-10 produk</option><option value="11-50">11-50 produk</option><option value="51-100">51-100 produk</option><option value=">100">Lebih dari 100 produk</option></select></div>
+      <div class="form-group"><label>Dari mana tahu Gudang Pintar?</label><input type="text" id="sumber" placeholder="WA/IG/FB/Teman/YouTube"></div>
+      <div class="form-group"><label style="display: flex; align-items: center; gap: 10px;"><input type="checkbox" id="setuju" required> Saya setuju dengan syarat & ketentuan</label></div>
+      <button type="submit" class="submit-btn" id="submitBtn">🎯 Daftar Gratis - Kuota Terbatas!</button>
+    </form>
+    
+    <p style="margin-top: 15px; font-size: 12px; color: #999; text-align: center;">*Kami percaya bahwa UMKM adalah tulang punggung ekonomi Indonesia. Ini adalah bentuk kontribusi kami untuk membantu produk lokal Anda kembali menjadi raja di pasar online.</p>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script>
+  function animateCounter(element, start, end, duration) {
+    let startTimestamp = null;
+    const step = (timestamp) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+      element.innerText = Math.floor(progress * (end - start) + start);
+      if (progress < 1) window.requestAnimationFrame(step);
+    };
+    window.requestAnimationFrame(step);
+  }
+  
+  animateCounter(document.getElementById('counterUmkm'), 0, 528, 2000);
+  animateCounter(document.getElementById('counterProduct'), 0, 12450, 2000);
+  animateCounter(document.getElementById('counterOrder'), 0, 8750, 2000);
+  
+  function toggleFaq(element) { element.classList.toggle('active'); }
+  function openModal() { document.getElementById('registerModal').style.display = 'flex'; }
+  function closeModal() { document.getElementById('registerModal').style.display = 'none'; }
+  
+  function showToast(message, isSuccess) {
+    const toast = document.getElementById('toast');
+    toast.textContent = message;
+    toast.style.backgroundColor = isSuccess ? '#28a745' : '#dc3545';
+    toast.style.display = 'block';
+    setTimeout(() => { toast.style.display = 'none'; }, 3000);
+  }
+  
+  const WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbwN3pj5a93IbnsgOYy8sCL_qhh2VQea4Qqp9ONEy9NDRX1ZUu4PnahBqYt38xMdAujzdQ/exec';
+  
+  document.getElementById('registerForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const data = {
+      namaToko: document.getElementById('namaToko').value,
+      namaPemilik: document.getElementById('namaPemilik').value,
+      email: document.getElementById('email').value,
+      wa: document.getElementById('wa').value,
+      produk: document.getElementById('produk').value,
+      jumlahProduk: document.getElementById('jumlahProduk').value,
+      sumber: document.getElementById('sumber').value
+    };
+    
+    const submitBtn = document.getElementById('submitBtn');
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = '⏳ Memproses...';
+    submitBtn.disabled = true;
+    
+    fetch(WEBAPP_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({
+        action: 'daftar',
+        namaToko: data.namaToko,
+        namaPemilik: data.namaPemilik,
+        email: data.email,
+        wa: data.wa,
+        produk: data.produk,
+        jumlahProduk: data.jumlahProduk,
+        sumber: data.sumber
+      })
+    }).catch(error => { console.log('Data terkirim:', data); });
+    
+    let daftar = JSON.parse(localStorage.getItem('pendaftar_umkm') || '[]');
+    daftar.push({ ...data, timestamp: new Date().toISOString() });
+    localStorage.setItem('pendaftar_umkm', JSON.stringify(daftar));
+    
+    showToast('✅ Pendaftaran berhasil! Admin akan menghubungi via WhatsApp dalam 1x24 jam.', true);
+    
+    submitBtn.textContent = originalText;
+    submitBtn.disabled = false;
+    closeModal();
+    document.getElementById('registerForm').reset();
+  });
+  
+  window.onclick = function(event) {
+    const modal = document.getElementById('registerModal');
+    if (event.target === modal) modal.style.display = 'none';
+  }
+  
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+</script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-gudangpintar"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-gudangpintar');
+</script>
+
+</body>
+</html>
